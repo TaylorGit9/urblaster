@@ -20,19 +20,34 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/*
+        
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
+          
+          <Text style={styles.ProfileStyle}>
+            Mon profil
+          </Text>
+          
+          <View style={styles.rubrique}>
+            
+            <Text>
+              Info users
+            </Text>
           </View>
 
+          <View style={styles.rubrique}>
+            <Text>
+              Div 2
+            </Text>
+            
+          </View>
+
+          <View style={styles.rubrique}>
+            <Text>
+              Ma playlist
+            </Text>
+            
+          </View>
+          {/*
           <View style={styles.getStartedContainer}>
             {this._maybeRenderDevelopmentModeWarning()}
 
@@ -52,8 +67,9 @@ export default class HomeScreen extends React.Component {
               <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
             </TouchableOpacity>
           </View>
+          */}
         </ScrollView>
-        */}
+        
 
         {/*}
         <View style={styles.tabBarInfoContainer}>
@@ -66,9 +82,7 @@ export default class HomeScreen extends React.Component {
 
       */}
 
-      <Text style={styles.HomeStyle}>
-        Mon profil
-      </Text>
+      
       
       </View>
     );
@@ -113,6 +127,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  rubrique:{
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#d6d7da',
+    height:100,
+    textAlign: 'center',
+  },
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
@@ -127,13 +148,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
   },
   getStartedContainer: {
     alignItems: 'center',
@@ -150,14 +164,11 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     paddingHorizontal: 4,
   },
-  HomeStyle: {
+  ProfileStyle: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
-    position:'absolute',
-    top:'50%',
-    left:'25%',
   },
   tabBarInfoContainer: {
     position: 'absolute',
