@@ -7,7 +7,10 @@ import {
   Text,
   TouchableOpacity,
   View,
+  //Searchbar,
 } from 'react-native';
+
+import MapView from 'react-native-maps';
 
 import { WebBrowser } from 'expo';
 
@@ -21,55 +24,77 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
         {/*
+        <Searchbar
+          cancelLink="Cancel"
+          placeholder="Search in items"
+          clearButton={true}
+        />
+        */}
+
+        <View style={styles.TopBarStyle}>
+          <Text style={styles.TopBarText}>
+            {/*"\n"*/}
+            Discover
+
+          </Text>
+
+        </View>
+
+        
+
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
 
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
+          <View style={styles.rubrique}>
+            
+            <Text style={styles.textRubrique}>
+              Around me
             </Text>
           </View>
 
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
+          {/* /// ///  MAP  /// /// */}
+          <View style={styles.rubrique}>
+          
+            {/*}
+            <Text style={styles.textRubrique}>
+              The Map should appear below
+            </Text>
+            */}
+            <MapView
+
+              style={styles.map}
+
+              initialRegion={{
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+            />
+
+            
+            
           </View>
+
+          <View style={styles.rubrique}>
+            <Text style={styles.textRubrique}>
+              By genre
+            </Text>
+            
+          </View>
+
+          <View style={styles.rubrique}>
+            <Text style={styles.textRubrique}>
+              Évènements
+            </Text>
+            
+          </View>
+          
         </ScrollView>
-        */}
+        
 
-        {/*}
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
-
-      */}
-
-      <Text style={styles.HomeStyle}>
-        Discover
-      </Text>
+        
       
       </View>
     );
@@ -114,6 +139,38 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  rubrique:{
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#d6d7da',
+    height:100,
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  textRubrique:{
+    textAlign: 'center',
+  },
+  TopBarStyle: {
+    /*flex:1,
+    flexDirection:'column',*/
+    height:65,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#d6d7da',
+    //alignItems: 'flex-end',
+    /*justifyContent: 'space-between', 
+    flex:1,*/
+  },
+  TopBarText: {
+    lineHeight: 24,
+    fontSize: 19,
+    color: 'rgba(96,100,109, 1)',
+    textAlign: 'center',
+    bottom:-20,
+  },
+  map:{
+    ...StyleSheet.absoluteFillObject,
+  },
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
@@ -122,43 +179,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  HomeStyle: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-    position:'absolute',
-    top:'50%',
-    left:'40%',
+    paddingTop: 0,
   },
   tabBarInfoContainer: {
     position: 'absolute',

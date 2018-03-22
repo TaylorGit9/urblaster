@@ -23,51 +23,31 @@ export default class HomeScreen extends React.Component {
         
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           
-          <Text style={styles.ProfileStyle}>
+          <Text style={styles.TopBarStyle}>
             Mon profil
           </Text>
           
           <View style={styles.rubrique}>
             
-            <Text>
+            <Text style={styles.textRubrique}>
               Info users
             </Text>
           </View>
 
           <View style={styles.rubrique}>
-            <Text>
+            <Text style={styles.textRubrique}>
               Div 2
             </Text>
             
           </View>
 
           <View style={styles.rubrique}>
-            <Text>
+            <Text style={styles.textRubrique}>
               Ma playlist
             </Text>
             
           </View>
-          {/*
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
-          </View>
-          */}
+          
         </ScrollView>
         
 
@@ -132,7 +112,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#d6d7da',
     height:100,
-    textAlign: 'center',
+    //textAlign: 'center',
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  textRubrique:{
+    textAlign:'center',
+    
   },
   developmentModeText: {
     marginBottom: 20,
@@ -164,11 +150,12 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     paddingHorizontal: 4,
   },
-  ProfileStyle: {
+  TopBarStyle: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
+
   },
   tabBarInfoContainer: {
     position: 'absolute',

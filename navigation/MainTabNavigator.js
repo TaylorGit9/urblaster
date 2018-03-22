@@ -8,8 +8,8 @@ import Colors from '../constants/Colors';
 /*
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 */
+import SettingsScreen from '../screens/SettingsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
 
@@ -28,10 +28,11 @@ export default TabNavigator(
     Links: {
       screen: LinksScreen,
     },
+    */
     Settings: {
       screen: SettingsScreen,
     },
-    */
+    
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -61,10 +62,11 @@ export default TabNavigator(
           case 'Links':
             iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link';
             break;
+            */
           case 'Settings':
             iconName =
               Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
-              */
+              
         }
         return (
           <Ionicons
