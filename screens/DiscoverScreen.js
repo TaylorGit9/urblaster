@@ -16,10 +16,26 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+export default class DiscoverScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  _onPressEvents(){
+    alert('Page évènements');
+  }
+
+  _onPressGenre(){
+    alert('Page Genres');
+  }
+
+  _onPressMap(){
+    alert('Agrandir la map');
+  }
+
+  _onPressAroundMe(){
+    alert('Recherche bluetooth');
+  }
 
   render() {
     return (
@@ -46,50 +62,60 @@ export default class HomeScreen extends React.Component {
 
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
-          <View style={styles.rubrique}>
-            
-            <Text style={styles.textRubrique}>
-              Around me
-            </Text>
-          </View>
+          <TouchableOpacity onPress={this._onPressAroundMe}>
+            <View style={styles.rubrique}>
+              
+              <Text style={styles.textRubrique}>
+                Around me
+              </Text>
+            </View>
+          </TouchableOpacity>
 
           {/* /// ///  MAP  /// /// */}
-          <View style={styles.rubrique}>
+          <TouchableOpacity onPress={this._onPressMap}>
+            <View style={styles.rubrique}>
+            
+              {/*}
+              <Text style={styles.textRubrique}>
+                The Map should appear below
+              </Text>
+              */}
+              <MapView
+
+                style={styles.map}
+
+                initialRegion={{
+                  latitude: 37.78825,
+                  longitude: -122.4324,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }}
+              />
+
+              
+              
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={this._onPressGenre}>
+            <View style={styles.rubrique}>
+              <Text style={styles.textRubrique}>
+                By genre
+              </Text>
+            </View>
+          </TouchableOpacity>
+            
           
-            {/*}
-            <Text style={styles.textRubrique}>
-              The Map should appear below
-            </Text>
-            */}
-            <MapView
 
-              style={styles.map}
-
-              initialRegion={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }}
-            />
-
-            
-            
-          </View>
-
-          <View style={styles.rubrique}>
-            <Text style={styles.textRubrique}>
-              By genre
-            </Text>
-            
-          </View>
-
-          <View style={styles.rubrique}>
-            <Text style={styles.textRubrique}>
-              Évènements
-            </Text>
-            
-          </View>
+          <TouchableOpacity onPress={this._onPressEvents}>
+            <View style={styles.rubrique}>
+              <Text style={styles.textRubrique}>
+                Évènements
+              </Text>
+              
+            </View>
+          </TouchableOpacity>
+          
           
         </ScrollView>
         

@@ -12,7 +12,7 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+export default class ProfileScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -20,12 +20,19 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
+        <View style={styles.TopBarStyle}>
+          <Text style={styles.TopBarText}>
+            {/*"\n"*/}
+            My profile
+
+          </Text>
+
+        </View>
         
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           
-          <Text style={styles.TopBarStyle}>
-            Mon profil
-          </Text>
+          
           
           <View style={styles.rubrique}>
             
@@ -118,7 +125,24 @@ const styles = StyleSheet.create({
   },
   textRubrique:{
     textAlign:'center',
-    
+  },
+  TopBarStyle: {
+    /*flex:1,
+    flexDirection:'column',*/
+    height:65,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#d6d7da',
+    //alignItems: 'flex-end',
+    /*justifyContent: 'space-between', 
+    flex:1,*/
+  },
+  TopBarText: {
+    lineHeight: 24,
+    fontSize: 19,
+    color: 'rgba(96,100,109, 1)',
+    textAlign: 'center',
+    bottom:-20,
   },
   developmentModeText: {
     marginBottom: 20,
@@ -128,19 +152,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
+    paddingTop: 0,
   },
   codeHighlightText: {
     color: 'rgba(96,100,109, 0.8)',
@@ -150,13 +162,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     paddingHorizontal: 4,
   },
-  TopBarStyle: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-
-  },
+  
   tabBarInfoContainer: {
     position: 'absolute',
     bottom: 0,
