@@ -43,14 +43,18 @@ export default TabNavigator(
           case 'Profile' :
             iconName =
             Platform.OS === 'ios'
-              ? `ios-information-circle${focused ? '' : '-outline'}`
-              : 'md-information-circle';
+              ? `ios-person${focused ? '' : '-outline'}`
+              : 'md-person';
             break;
           case 'Discover' :
             iconName =
             Platform.OS === 'ios'
-              ? `ios-information-circle${focused ? '' : '-outline'}`
-              : 'md-information-circle';
+              ? `ios-planet${focused ? '' : '-outline'}`
+              : 'md-planet';
+            /*
+              ? `ios-globe${focused ? '' : '-outline'}`
+              : 'md-globe';
+              */
             break;
             /*
           case 'Home':

@@ -7,8 +7,10 @@ import {
   Text,
   TouchableOpacity,
   View,
-  //Searchbar,
+  Searchbar,
 } from 'react-native';
+
+import { Constants, Location, Permissions } from 'expo';
 
 import MapView from 'react-native-maps';
 
@@ -21,6 +23,15 @@ export default class DiscoverScreen extends React.Component {
     header: null,
   };
 
+  state = {
+    location: null,
+    errorMessage: null,
+    locationOK:false,
+    c_latitude:0,
+    c_longitude:0,
+  };
+
+  //////////  //  //  FUNCTIONS  //  //  //////////
   _onPressEvents(){
     alert('Page évènements');
   }
@@ -30,24 +41,68 @@ export default class DiscoverScreen extends React.Component {
   }
 
   _onPressMap(){
-    alert('Agrandir la map');
+    //alert('Agrandir la map');
   }
 
   _onPressAroundMe(){
     alert('Recherche bluetooth');
   }
 
+  componentWillMount() {
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      this.setState({
+        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+      });
+    } else {
+      this._getLocationAsync();
+    }
+  }
+
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({ location });
+  };
+
+  //////////  //  //  RENDER  //  //  //////////
   render() {
+
+    //For location access
+    let text = 'Waiting...';
+    if (this.state.errorMessage) {
+      text = this.state.errorMessage;
+    } else if (this.state.location) {
+      text = JSON.stringify(this.state.location['coords']['latitude']);
+      this.state.c_latitude= parseFloat(JSON.stringify(this.state.location['coords']['latitude']));
+      this.state.c_longitude= parseFloat(JSON.stringify(this.state.location['coords']['longitude']));
+      this.state.locationOK=true;
+    }
+    
+    /*if(this.state.locationOK){
+      alert('latitude : '+this.state.c_latitude);
+      alert('longitude : '+this.state.c_longitude);
+    }*/
+
+
     return (
+
       <View style={styles.container}>
 
         {/*
         <Searchbar
+          /*
           cancelLink="Cancel"
           placeholder="Search in items"
           clearButton={true}
-        />
-        */}
+          */
+        ///>
+        }
 
         <View style={styles.TopBarStyle}>
           <Text style={styles.TopBarText}>
@@ -71,31 +126,9 @@ export default class DiscoverScreen extends React.Component {
             </View>
           </TouchableOpacity>
 
-          {/* /// ///  MAP  /// /// */}
-          <TouchableOpacity onPress={this._onPressMap}>
-            <View style={styles.rubrique}>
-            
-              {/*}
-              <Text style={styles.textRubrique}>
-                The Map should appear below
-              </Text>
-              */}
-              <MapView
 
-                style={styles.map}
 
-                initialRegion={{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
-                }}
-              />
-
-              
-              
-            </View>
-          </TouchableOpacity>
+          
 
           <TouchableOpacity onPress={this._onPressGenre}>
             <View style={styles.rubrique}>
@@ -115,6 +148,46 @@ export default class DiscoverScreen extends React.Component {
               
             </View>
           </TouchableOpacity>
+
+          {/* /// ///  MAP  /// /// */}
+          {/*<TouchableOpacity onPress={this._onPressMap}>*/}
+            <View style={[styles.rubrique,styles.rubriqueMap ]}>
+            
+              {/*}
+              <Text style={styles.textRubrique}>
+                The Map should appear below
+              </Text>
+              */}
+              <MapView
+
+                style={styles.map}
+
+                initialRegion={{
+
+                  //latitude:this.state.c_latitude,
+                  latitude: 37.78825,
+                  //longitude:this.state.c_longitude,
+                  longitude: -122.4324,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                  //latitude:parseFloat(JSON.stringify(this.state.location['coords']['latitude'])),
+                  //longitude:this.state.location['coords']['longitude'],
+                  //latitude:c_latitude
+ 
+                  
+                }}
+
+                showsMyLocationButton={true}
+                showsUserLocation={true}
+                followsUserLocation={true}
+                showsCompass={true}
+                showsBuildings={true}
+              />
+
+              
+              
+            </View>
+          {/*</TouchableOpacity>*/}
           
           
         </ScrollView>
@@ -170,6 +243,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#d6d7da',
     height:100,
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  rubriqueMap:{
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#d6d7da',
+    height:200,
     justifyContent: 'center', 
     alignItems: 'center'
   },
