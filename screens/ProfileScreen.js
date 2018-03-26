@@ -7,15 +7,45 @@ import {
   Text,
   TouchableOpacity,
   View,
+  TouchableHighlight,
 } from 'react-native';
+//import Coverflow from 'react-coverflow';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
+
+
 export default class ProfileScreen extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { pressStatus: false };
+  }
+  
   static navigationOptions = {
     header: null,
   };
+
+ 
+
+  myPlaylistHeight=0;
+  myPlaylistTouchCount=1;
+
+  _onPressMyPlaylist(){
+    //alert('Display MyPlaylist '+1);
+
+    if (this.myPlaylistTouchCount==1){
+      this.myPlaylistHeight=100;
+      this.myPlaylistTouchCount=0;
+      //alert(0);
+    }else {
+      this.myPlaylistHeight=200;
+      this.myPlaylistTouchCount=1;
+      //alert(1);
+    }
+    return this.myPlaylistHeight;
+  }
 
   render() {
     return (
@@ -24,7 +54,7 @@ export default class ProfileScreen extends React.Component {
         <View style={styles.TopBarStyle}>
           <Text style={styles.TopBarText}>
             {/*"\n"*/}
-            My profile
+            Pseudo
 
           </Text>
 
@@ -34,26 +64,93 @@ export default class ProfileScreen extends React.Component {
           
           
           
-          <View style={styles.rubrique}>
-            
-            <Text style={styles.textRubrique}>
-              Info users
-            </Text>
-          </View>
+          <View style={[styles.rubrique,styles.rubriqueProfil, {height:100}]}>
 
-          <View style={styles.rubrique}>
-            <Text style={styles.textRubrique}>
-              Div 2
+            {/*} 
+            <Text style={[styles.textRubrique, {position:'absolute', right:10,}]}>
+              Pseudo
             </Text>
-            
-          </View>
+            */}
 
-          <View style={styles.rubrique}>
-            <Text style={styles.textRubrique}>
-              Ma playlist
-            </Text>
+            <Image
+              style={styles.profilePic}
+              source={require('../assets/images/profilePic1.jpg')}
+              //source={require('../assets/images/icon.png')}
+            />
+
+            <View style={[styles.instruments,{position:'absolute', right:10,}]}>
+              <Text>
+                Plays on : {' '}{' '}
+              </Text>
+              <Image
+                style={styles.instrumentsLogo}
+                source={require('../assets/images/instruments/piano.png')}
+              />
+              <Text>{' '}{' '}{' '}{' '}</Text>
+              <Image
+                style={styles.instrumentsLogo}
+                source={require('../assets/images/instruments/electricGuitar.png')}
+              />
+              <Text>{' '}{' '}</Text>
+            </View>
+
+            <View style={styles.settings}>
+              <Text>
+                Edit {' '}
+              </Text>
+              <Image
+                  style={styles.settingsLogo}
+                  source={require('../assets/images/settingsBlack.png')}
+                />
+            </View>
             
+
           </View>
+          
+          <TouchableOpacity
+            onPress={()=> this.setState({pressStatus: !this.state.pressStatus})}
+          >
+            <View style={[styles.rubrique,this.state.pressStatus && styles.rubriqueAlt]}>
+              <Text style={styles.textRubrique}>
+                Div 2
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={this._onPressMyPlaylist}>
+            <View style={[styles.rubrique, {height:this._onPressMyPlaylist()}]}>
+              <Text style={styles.textRubrique}>
+                Ma playlist
+              </Text>
+              {/*}
+              <Coverflow width="960" height="500"
+                displayQuantityOfSide={2}
+                navigation={false}
+                enableScroll={true}
+                clickable={true}
+                active={0}
+              >
+                <div
+                  onClick={() => fn()}
+                  onKeyDown={() => fn()}
+                  role="menuitem"
+                  tabIndex="0"
+                >
+                  <img
+                    src='image/path'
+                    alt='title or description'
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                    }}
+                  />
+                </div>
+                <img src='image/path' alt='title or description' data-action="http://andyyou.github.io/react-coverflow/"/>
+                <img src='image/path' alt='title or description' data-action="http://andyyou.github.io/react-coverflow/"/>
+              </Coverflow>
+              */}
+            </View>
+          </TouchableOpacity>
           
         </ScrollView>
         
@@ -119,23 +216,44 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#d6d7da',
     height:100,
-    //textAlign: 'center',
     justifyContent: 'center', 
-    alignItems: 'center'
+    alignItems: 'center',
+  },
+  rubriqueAlt:{
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#d6d7da',
+    height:200,
+    justifyContent: 'center', 
+    alignItems: 'center',
+  },
+  rubrique2a:{
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#d6d7da',
+    height:200,
+    justifyContent: 'center', 
+    alignItems: 'center',
+  },
+  rubrique2b:{
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#d6d7da',
+    height:100,
+    justifyContent: 'center', 
+    alignItems: 'center',
   },
   textRubrique:{
     textAlign:'center',
   },
+  /*rubriqueProfile:{
+    height:260,
+  },*/
   TopBarStyle: {
-    /*flex:1,
-    flexDirection:'column',*/
     height:65,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#d6d7da',
-    //alignItems: 'flex-end',
-    /*justifyContent: 'space-between', 
-    flex:1,*/
   },
   TopBarText: {
     lineHeight: 24,
@@ -143,6 +261,41 @@ const styles = StyleSheet.create({
     color: 'rgba(96,100,109, 1)',
     textAlign: 'center',
     bottom:-20,
+  },
+  profilePic:{
+    position:'absolute',
+    width:90,
+    height:90,
+    top:10,
+    left:10,
+  },
+  instruments:{
+    borderWidth:0,
+    borderRadius:3,
+    flexDirection:'row',
+  },
+  instrumentsLogo:{
+    position:'relative',
+    width:30,
+    height:30,
+    //top:10,
+    //left:10,
+    borderWidth:0,
+  },
+  settings:{
+    flexDirection:'row',
+    borderWidth:0,
+    borderRadius:3,
+    position:'absolute',
+    bottom:5,
+    right:5,
+  },
+  settingsLogo:{
+    position:'relative',
+    width:12,
+    height:12,
+    borderWidth:0,
+    top:2,
   },
   developmentModeText: {
     marginBottom: 20,

@@ -48,6 +48,10 @@ export default class DiscoverScreen extends React.Component {
     alert('Recherche bluetooth');
   }
 
+  _onPressJam(){
+    alert('Jam');
+  }
+
   componentWillMount() {
     if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
@@ -144,6 +148,15 @@ export default class DiscoverScreen extends React.Component {
             <View style={styles.rubrique}>
               <Text style={styles.textRubrique}>
                 Évènements
+              </Text>
+              
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={this._onPressJam}>
+            <View style={styles.rubrique}>
+              <Text style={styles.textRubrique}>
+                Jam
               </Text>
               
             </View>
@@ -250,7 +263,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#d6d7da',
-    height:200,
+    height:250,
     justifyContent: 'center', 
     alignItems: 'center'
   },
